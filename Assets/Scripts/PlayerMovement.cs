@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     int health = 100;
     int maxHealth = 100;
+    int maxMedkitHealth = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,21 @@ public class PlayerMovement : MonoBehaviour
             {
                     Destroy(hitZombie);
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "MedKit")
+        {
+            int healthNeeded = maxHealth - health;
+            if (maxMedkitHealth >= healthNeeded)
+                health = health + healthNeeded;
+            else
+                health = health + maxMedkitHealth;
+            Debug.Log("Health:" + health);
+            Destroy(other.gameObject);
+
         }
     }
 
