@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public float playerSpeed = 12f;
+    public Transform gunFirePoint;
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -22,19 +23,35 @@ public class PlayerMovement : MonoBehaviour
         float zInput = Input.GetAxis("Vertical");
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
+            animator.SetTrigger("isRunning");
             PlayerRun(xInput, zInput);
         }
-            animator.SetTrigger("isIdle");
- 
-        
 
-      
+        animator.SetTrigger("isIdle");
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("isShooting");
+            WhenZombieGotHit();
+        }
     }
 
     private void PlayerRun(float xInput, float zInput)
     {
         Vector3 move = transform.right * xInput + transform.forward * zInput;
         controller.Move(move * playerSpeed * Time.deltaTime);
-        animator.SetTrigger("isRunning");
+       
+    }
+    private void WhenZombieGotHit()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(gunFirePoint.position, gunFirePoint.forward, out hitInfo, 100f))
+        {
+            GameObject hitZombie = hitInfo.collider.gameObject;
+            if (hitZombie.tag == "Zombie")
+            {
+                    Destroy(hitZombie);
+            }
+        }
     }
 }
