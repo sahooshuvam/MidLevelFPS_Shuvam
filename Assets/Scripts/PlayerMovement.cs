@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 12f;
     public Transform gunFirePoint;
     Animator animator;
+
+    int health = 100;
+    int maxHealth = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,17 @@ public class PlayerMovement : MonoBehaviour
             {
                     Destroy(hitZombie);
             }
+        }
+    }
+
+    public void TakeHit(int healthDecrease)
+    {
+        health = Mathf.Clamp(health - healthDecrease,0,maxHealth);
+        print(health);
+
+        if (health <= 0)
+        {
+            Debug.Log("Player Will Die"); ;
         }
     }
 }

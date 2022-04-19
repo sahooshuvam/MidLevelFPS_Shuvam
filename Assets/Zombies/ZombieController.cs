@@ -18,6 +18,7 @@ public class ZombieController : MonoBehaviour
     {
         anim = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent>();
+        target = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -65,7 +66,7 @@ public class ZombieController : MonoBehaviour
                 break;
 
             case STATE.CHASE:
-                if (GameStart.isGameOver )
+                if (GameStart.isGameOver)
                 {
                     TurnOffAllTriggerAnim();
                     state = STATE.WONDER;
@@ -105,9 +106,6 @@ public class ZombieController : MonoBehaviour
                 break;
 
             case STATE.DEAD:
-                
-                //GameObject tempRd = Instantiate(ragdollPrefab, this.transform.position, this.transform.rotation);
-                //tempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
                 Destroy(agent);
                 break;
         }
@@ -122,7 +120,7 @@ public class ZombieController : MonoBehaviour
 
     public bool CanSeePlayer()
     {
-        if (DistanceToPlayer() < 10)
+        if (DistanceToPlayer() < 10f)
         {
             return true;
         }
@@ -134,13 +132,7 @@ public class ZombieController : MonoBehaviour
 
     private float DistanceToPlayer()
     {
-        if (GameStart.isGameOver)
-        {
-            return Mathf.Infinity;
-
-        }
-            return Vector3.Distance(target.transform.position, this.transform.position);
-        
+        return Vector3.Distance(target.transform.position, this.transform.position); 
     }
 
     public bool CannotSeePlayer()
@@ -160,16 +152,14 @@ public class ZombieController : MonoBehaviour
         state = STATE.DEAD;
     }
 
-    int damageAmount = 5;
+    
     public void DamagePlayer()
     {
-        if (target!=null)
+        int damageAmount = 5;
+        if (target != null)
         {
-            //target.GetComponent<PlayerController>().TakeHit(damageAmount);//create a method Random sound when player takes damage
+            target.GetComponent<PlayerMovement>().TakeHit(damageAmount);//create a method Random sound when player takes damage
         }
-
-       
-
     }
 }
 
