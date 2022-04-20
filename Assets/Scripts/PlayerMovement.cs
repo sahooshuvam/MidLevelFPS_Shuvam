@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 12f;
     public Transform gunFirePoint;
     Animator animator;
+    public Text scoreValue;
+    public Text healthValue;
 
     int health = 100;
     int maxHealth = 100;
     int maxMedkitHealth = 50;
+    int score = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,10 +58,12 @@ public class PlayerMovement : MonoBehaviour
             GameObject hitZombie = hitInfo.collider.gameObject;
             if (hitZombie.tag == "Zombie")
             {
-                    Destroy(hitZombie);
+                score = score + 10;
+                scoreValue.text = score.ToString();
+                Destroy(hitZombie);
             }
         }
-    }
+    } 
 
     private void OnTriggerEnter(Collider other)
     {
@@ -68,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
                 health = health + healthNeeded;
             else
                 health = health + maxMedkitHealth;
+
+            healthValue.text = health.ToString();
             Debug.Log("Health:" + health);
             Destroy(other.gameObject);
 
@@ -77,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     public void TakeHit(int healthDecrease)
     {
         health = Mathf.Clamp(health - healthDecrease,0,maxHealth);
+        healthValue.text = health.ToString();
         print(health);
 
         if (health <= 0)
