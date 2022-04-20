@@ -117,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
                 ammo = ammo + maxAmmokitAmmo;
 
             Debug.Log("Ammo :" +ammo);
+            Destroy(other.gameObject);
         }
     }
 
