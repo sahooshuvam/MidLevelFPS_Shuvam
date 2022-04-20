@@ -12,14 +12,20 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     public Text scoreValue;
     public Text healthValue;
+    SpawnManager spawn;
+    public GameObject levelCompletePanel;
 
+ 
     int health = 100;
     int maxHealth = 100;
     int maxMedkitHealth = 50;
     int score = 0;
+    int dealthCount = 0;
     // Start is called before the first frame update
     void Start()
     {
+        levelCompletePanel.SetActive(false);
+        spawn = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         animator = GetComponent<Animator>();
         animator.SetTrigger("isIdle");
     }
@@ -42,6 +48,11 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("isShooting");
             WhenZombieGotHit();
         }
+
+        if (spawn.number == dealthCount)
+        {
+            levelCompletePanel.SetActive(true);
+        }
     }
 
     private void PlayerRun(float xInput, float zInput)
@@ -60,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 score = score + 10;
                 scoreValue.text = score.ToString();
+                dealthCount++;
                 Destroy(hitZombie);
             }
         }
