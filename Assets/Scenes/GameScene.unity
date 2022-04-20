@@ -1224,6 +1224,26 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6149844801639213216, guid: 1a1210b49fc3e5a48bfe29010b73cecf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.099
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149844801639213216, guid: 1a1210b49fc3e5a48bfe29010b73cecf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.038
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149844801639213216, guid: 1a1210b49fc3e5a48bfe29010b73cecf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149844801639213216, guid: 1a1210b49fc3e5a48bfe29010b73cecf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99451697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149844801639213216, guid: 1a1210b49fc3e5a48bfe29010b73cecf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.10457539
+      objectReference: {fileID: 0}
     - target: {fileID: 6149844802724712231, guid: 1a1210b49fc3e5a48bfe29010b73cecf, type: 3}
       propertyPath: scoreValue
       value: 

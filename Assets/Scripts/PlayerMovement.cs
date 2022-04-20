@@ -15,11 +15,16 @@ public class PlayerMovement : MonoBehaviour
     SpawnManager spawn;
     public GameObject levelCompletePanel;
 
- 
     int health = 100;
     int maxHealth = 100;
     int maxMedkitHealth = 50;
+
+    int ammo = 30;
+    int maxAmmo = 30;
+    int maxAmmokitAmmo = 30;
+
     int score = 0;
+
     int dealthCount = 0;
     // Start is called before the first frame update
     void Start()
@@ -45,9 +50,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            animator.SetTrigger("isShooting");
-            WhenZombieGotHit();
+            ammo--;
+            if (ammo >= 0)
+            {
+                animator.SetTrigger("isShooting");
+                WhenZombieGotHit();
+                Debug.Log("Ammo: " + ammo);
+            }
+            else
+                Debug.Log("You want to reload your Ammo");
+            
+            
         }
+
+
 
         if (spawn.number == dealthCount)
         {
@@ -90,7 +106,17 @@ public class PlayerMovement : MonoBehaviour
             healthValue.text = health.ToString();
             Debug.Log("Health:" + health);
             Destroy(other.gameObject);
+        }
 
+        if (other.gameObject.tag == "AmmoKit")
+        {
+            int ammoNeeded = maxAmmo - ammo;
+            if (maxAmmokitAmmo >= ammoNeeded)
+                ammo = ammo + ammoNeeded;
+            else
+                ammo = ammo + maxAmmokitAmmo;
+
+            Debug.Log("Ammo :" +ammo);
         }
     }
 
