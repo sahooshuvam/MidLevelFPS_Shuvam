@@ -32,12 +32,13 @@ public class PlayerMovement : MonoBehaviour
         levelCompletePanel.SetActive(false);
         spawn = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         animator = GetComponent<Animator>();
-        animator.SetTrigger("isIdle");
+        //animator.SetTrigger("isIdle");
     }
 
     // Update is called once per frame
     void Update()
     {
+        animator.SetTrigger("isIdle");
         float xInput = Input.GetAxis("Horizontal");
         float zInput = Input.GetAxis("Vertical");
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             PlayerRun(xInput, zInput);
         }
 
-        animator.SetTrigger("isIdle");
+        
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -56,14 +57,8 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetTrigger("isShooting");
                 WhenZombieGotHit();
                 Debug.Log("Ammo: " + ammo);
-            }
-            else
-                Debug.Log("You want to reload your Ammo");
-            
-            
+            }                         
         }
-
-
 
         if (spawn.number == dealthCount)
         {
